@@ -32,6 +32,7 @@ EmployeeRestWebServicesApplication.java
 Angular 7 is used as front end. To run the application run the following.
 
 ```
+npm install
 ng serve
 ```
 
