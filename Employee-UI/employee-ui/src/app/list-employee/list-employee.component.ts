@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../service/employeeSvc';
 
 @Component({
   selector: 'app-list-employee',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListEmployeeComponent implements OnInit {
 
-  employeeData=[
+  employeeData = [
     {
       firstName: 'test1',
       lastName: 'lname1',
@@ -30,10 +31,24 @@ export class ListEmployeeComponent implements OnInit {
       department: 'dept1'
     }
   ];
-
-  constructor() { }
+  employeeList: IEmployee;
+  constructor(private _empSvc: EmployeeService) { }
 
   ngOnInit() {
+    this.getList();
   }
 
+  getList() {
+    this._empSvc.getEmployees().subscribe(
+      response => this.sucess(response),
+      error => this.error(error)
+    );
+  }
+  sucess(response) {
+    this.employeeList = response;
+    console.log(this.employeeList);
+  }
+  error(error) {
+    //this.account='something went wrong';
+  }
 }

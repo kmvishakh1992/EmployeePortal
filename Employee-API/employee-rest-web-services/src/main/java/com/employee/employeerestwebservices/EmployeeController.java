@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@CrossOrigin(origins="*")
 @RestController
 public class EmployeeController {
 
@@ -15,7 +17,10 @@ public class EmployeeController {
         // Find
         @GetMapping("/employees")
         List<Employee> findAll() {
-            return repository.findAll();
+            List<Employee> sortedList = repository.findAll().stream()
+                    .sorted((e1,e2)-> e1.getFirstName().compareTo(e2.getFirstName()))
+                    .collect(Collectors.toList());
+            return sortedList;
         }
 
         // Save
